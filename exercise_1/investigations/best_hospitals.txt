@@ -29,6 +29,13 @@ So, in summary our modified quality of care formula is:
 | Patient Experience               | 22%            |
 | Timeliness of Care               | 4%             |
 
+==============
+METHODOLOGY
+==============
+
+
+
+
 
 ==============
 RESULTS

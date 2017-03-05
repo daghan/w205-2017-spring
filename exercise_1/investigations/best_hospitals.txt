@@ -1,0 +1,57 @@
+==============
+INTRODUCTION
+==============
+According to "Overall Hospital Quality Star Ratings on Hospital Compare
+Methodology Report (v2.0)" page 17, the quality of care formula is as follows
+
+|            Procedure             | Ratings Weight |
+|----------------------------------|----------------|
+| Mortality                        | 22%            |
+| Safety of Care                   | 22%            |
+| Readmission                      | 22%            |
+| Patient Experience               | 22%            |
+| Effectiveness of Care            | 4%             |
+| Timeliness of Care               | 4%             |
+| Efficient Use of Medical Imaging | 4%             |
+
+
+For this study, we'll make the following 3 modifications, which shouldn't impact the outcome in a significant way:
+1- We'll ignore the safety of care component. It is not included in the 5 csv
+files we are encouraged to work with, though it is present in the original data archive.
+2- We'll omit the effectiveness of care component. Extracting the effectiveness of a given medical operation is a fairly involved process, which also requires some amount of medical knowledge. Further, it has a relatively low impact on the final score (4%)
+3- Lastly, we'll omit the medical imaging category to avoid problems with imputing missing data. A more thorough Methodology is provided in page 18 of the aforementioned document
+
+So, in summary our modified quality of care formula is:
+|            Procedure             | Ratings Weight |
+|----------------------------------|----------------|
+| Mortality                        | 22%            |
+| Readmission                      | 22%            |
+| Patient Experience               | 22%            |
+| Timeliness of Care               | 4%             |
+
+
+==============
+RESULTS
+==============
+select provider_id, hospital_name, hospital_score from hospitals_with_final_score ORDER BY hospital_score DESC limit 10;
++-------------+--------------------------------------+--------------------+
+| provider_id |            hospital_name             |   hospital_score   |
++-------------+--------------------------------------+--------------------+
+|      430095 | AVERA HEART HOSPITAL OF SOUTH DAKOTA | 1.0991053548856726 |
+|       30103 | MAYO CLINIC HOSPITAL                 | 1.0544044050572912 |
+|      140145 | ST JOSEPHS HOSPITAL                  | 1.0457156440444324 |
+|      450827 | KELL WEST REGIONAL HOSPITAL          |  1.024779709732027 |
+|      170109 | MIAMI COUNTY MEDICAL CENTER          |  1.016934172149051 |
+|      670025 | THE HEART HOSPITAL BAYLOR PLANO      | 1.0100739138477486 |
+|      370215 | OKLAHOMA HEART HOSPITAL              |  0.990181593176721 |
+|      260179 | ST LUKES HOSPITAL                    | 0.9395485384166901 |
+|      520083 | ST MARYS HOSPITAL                    | 0.9181268001949552 |
+|      370234 | OKLAHOMA HEART HOSPITAL SOUTH        | 0.9114236727301562 |
++-------------+--------------------------------------+--------------------+
+
+
+==============
+Notes
+==============
+Note that the report is available at
+https://www.qualitynet.org/dcs/ContentServer?c=Page&pagename=QnetPublic%2FPage%2FQnetTier3&cid=1228775957165

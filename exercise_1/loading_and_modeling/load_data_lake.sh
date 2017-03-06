@@ -43,24 +43,42 @@ tail -n +2 "$OLD_READMIT" > $NEW_READMIT
 tail -n +2 "$OLD_MEASURE" > $NEW_MEASURE
 tail -n +2 "$OLD_SURVEY" > $NEW_SURVEY
 
+head -n 2 "$OLD_HOSPITAL" > "./tmp/hospitals_sample.csv"
+head -n 2 "$OLD_EFFECITVE" > "./tmp/effective_care_sample.csv"
+head -n 2 "$OLD_READMIT" > "./tmp/readmissions_sample.csv"
+head -n 2 "$OLD_MEASURE" > "./tmp/Measures_sample.csv"
+head -n 2 "$OLD_SURVEY" > "./tmp/surveys_responses_sample.csv"
 
-# push to hdfs
+
+
+## make sure directory doesn't exist
+hdfs dfs -rm -r -r /user/w205/hospital_compare
+
 ## first create directory
 hdfs dfs -mkdir -p /user/w205/hospital_compare
 
-## then put the new file in the new directory
-hdfs dfs -put $NEW_HOSPITAL /user/w205/hospital_compare
-hdfs dfs -put $NEW_EFFECTIVE /user/w205/hospital_compare
-hdfs dfs -put $NEW_READMIT /user/w205/hospital_compare
-hdfs dfs -put $NEW_MEASURE /user/w205/hospital_compare
-hdfs dfs -put $NEW_SURVEY /user/w205/hospital_compare
+hdfs dfs -mkdir -p /user/w205/hospital_compare/hospitals
+hdfs dfs -put $NEW_HOSPITAL /user/w205/hospital_compare/hospitals
+
+hdfs dfs -mkdir -p /user/w205/hospital_compare/effective_care
+hdfs dfs -put $NEW_EFFECTIVE /user/w205/hospital_compare/effective_care
+
+hdfs dfs -mkdir -p /user/w205/hospital_compare/readmissions
+hdfs dfs -put $NEW_READMIT /user/w205/hospital_compare/readmissions
+
+hdfs dfs -mkdir -p /user/w205/hospital_compare/measures
+hdfs dfs -put $NEW_MEASURE /user/w205/hospital_compare/measures
+
+hdfs dfs -mkdir -p /user/w205/hospital_compare/surveys
+hdfs dfs -put $NEW_SURVEY /user/w205/hospital_compare/surveys
+
 
 ##
 echo "List of HDFS files"
-hdfs dfs -ls /user/w205/hospital_compare
+hdfs dfs -ls -R /user/w205/hospital_compare
 
 # clean-up
-rm -rf ./tmp
+#rm -rf ./tmp
 
 # change directory back to where we started
 cd $MY_CDW

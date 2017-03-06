@@ -1,0 +1,34 @@
+==============
+INTRODUCTION
+==============
+Using the same methodology and formula, a simple aggregation by state provides
+the best states ranking
+
+==============
+QUERY
+==============
+SELECT state, avg(hospital_score) AS avg_hospital_score
+FROM hospitals_with_final_score
+GROUP BY state
+ORDER BY avg_hospital_score DESC
+LIMIT 10;
+
+
+==============
+RESULTS
+==============
+
++-------+------------------------+
+| State | Hospital_compare_score |
++-------+------------------------+
+| MN    |    0.21765819877512302 |
+| WI    |     0.1904577353488321 |
+| SD    |     0.1781477195837838 |
+| NH    |     0.1634635338703337 |
+| ME    |     0.1602808038192261 |
+| IN    |     0.1370907164543505 |
+| CO    |    0.12883320327153017 |
+| UT    |    0.11672092482488118 |
+| VT    |    0.10396869963621262 |
+| MA    |    0.09968770058424256 |
++-------+------------------------+

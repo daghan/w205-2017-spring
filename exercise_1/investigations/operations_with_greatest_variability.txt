@@ -1,0 +1,30 @@
+==============
+INTRODUCTION
+==============
+We have the T disributions (scaled and centered) for 3 operations
+- 30 day mortality rates after entering the hospital
+- Readmission to hospital within 30 days of discharge
+- Wait times for various key operations
+
+We'll simply compare the variances of these 3 groups
+
+==============
+QUERY
+==============
+SELECT  var_samp(mortality_scaled_score) AS mortality_variance,
+        var_samp(readmission_scaled_score) AS readmission_variance,
+        var_samp(scaled_wait_times) AS wait_times_variance
+FROM hospitals_with_final_score;
+
+
+==============
+RESULTS
+==============
+
++--------------------+----------------------+---------------------+
+| mortality_variance | readmission_variance | wait_times_variance |
++--------------------+----------------------+---------------------+
+|  0.952202750962443 |  0.48472154071372736 |  0.2860391053312536 |
++--------------------+----------------------+---------------------+
+
+The greatest variance between hospitals is in the mortality rates, which is somewhat scary.

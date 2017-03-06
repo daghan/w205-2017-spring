@@ -1,0 +1,32 @@
+==============
+INTRODUCTION
+==============
+We have the T disributions (scaled and centered) for 3 operations
+- 30 day mortality rates after entering the hospital
+- Readmission to hospital within 30 days of discharge
+- Wait times for various key operations
+
+We'll simply compute the correlation with each of these 3 groups with the patient surveys
+
+==============
+QUERY
+==============
+SELECT  corr(mortality_scaled_score, survey_scaled_score) AS mortality_survey_correlation,
+        corr(readmission_scaled_score, survey_scaled_score) AS readmission_survey_correlation,
+        corr(scaled_wait_times, survey_scaled_score) AS wait_times_survey_correlation
+FROM hospitals_with_final_score;
+
+
+==============
+RESULTS
+==============
+
++------------------------------+--------------------------------+-------------------------------+
+| mortality_survey_correlation | readmission_survey_correlation | wait_times_survey_correlation |
++------------------------------+--------------------------------+-------------------------------+
+|        -0.016722480720948375 |          -0.029949305453610638 |           -0.2658683324647979 |
++------------------------------+--------------------------------+-------------------------------+
+
+There does't seem to be a meaningful correlation between the mortality rates and patient survey, nor between the readmission rates and patient survey as these complications may be hard to detect or perceive.
+
+However, as expected, there is a meaningful negative correlation (-0.266) between the wait times and patient surveys. The longer the wait times, the worse the patient experience (captured by the HCAHPS variable).
